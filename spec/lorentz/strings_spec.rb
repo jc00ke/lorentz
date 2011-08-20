@@ -1,5 +1,21 @@
 require 'spec_helper'
 
+#APPEND
+#DECR
+#DECRBY
+#GETBIT
+#GETRANGE
+#GETSET
+#INCR
+#INCRBY
+#MGET
+#MSET
+#MSETNX
+#SETBIT
+#SETEX
+#SETNX
+#SETRANGE
+
 describe "strings" do
   let(:lorentz) { Lorentz.new }
 
@@ -45,6 +61,30 @@ describe "strings" do
          xit "should return length of value" do
 
          end
+      end
+    end
+  end
+
+  describe "#strlen" do
+    context "when key exists" do
+      before do
+        lorentz.set("chunky", "baconz")
+        lorentz.set("foo", ["bar"])
+      end
+      it "should return length of string value" do
+        lorentz.strlen("chunky").should eq(6)
+      end
+
+      it "should raise an error if value isn't a string" do
+        expect do
+          lorentz.strlen("foo")
+        end.to raise_error(LorentzException)
+      end
+    end
+
+    context "when key doesn't exist" do
+      it "should return 0" do
+        lorentz.strlen("chunky").should eq(0)
       end
     end
   end

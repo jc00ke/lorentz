@@ -14,6 +14,7 @@ Because it's \_why day, \_why day, gotta write a hack it's \_why day!
 * del
 * keys (with glob pattern)
 * rename
+* strlen
 
 ## Inspiration
 
