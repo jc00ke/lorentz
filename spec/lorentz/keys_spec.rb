@@ -6,7 +6,6 @@ require 'spec_helper'
 #OBJECT
 #PERSIST
 #RANDOMKEY
-#RENAME
 #RENAMENX
 #SORT
 #TTL
