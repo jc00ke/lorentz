@@ -7,6 +7,8 @@ module Lorentz::Strings
   end
 
   def get(key)
-    @db[key]
+    run do
+      @db[key]
+    end
   end
 end
