@@ -1,4 +1,6 @@
 require "lorentz/version"
+require "lorentz/strings"
+require "lorentz/keys"
 
 class Lorentz
 
@@ -13,17 +15,8 @@ class Lorentz
             exit
           end
   end
-
-  def set(key, value)
-    save do
-      @db[key] = value
-      return "OK"
-    end
-  end
-
-  def get(key)
-    @db[key]
-  end
+  include Lorentz::Strings
+  include Lorentz::Keys
 
   private
   def save(&block)
