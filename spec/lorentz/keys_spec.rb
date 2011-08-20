@@ -1,5 +1,17 @@
 require 'spec_helper'
 
+#EXPIRE
+#EXPIREAT
+#MOVE
+#OBJECT
+#PERSIST
+#RANDOMKEY
+#RENAME
+#RENAMENX
+#SORT
+#TTL
+#TYPE
+
 describe "keys" do
   let(:lorentz) { Lorentz.new }
 
@@ -34,5 +46,31 @@ describe "keys" do
     it "should return the number of deleted keys" do
       lorentz.del("chunky", "bacon", "pet ham").should eq(2)
     end
+  end
+
+  describe "#keys" do
+    before do
+      lorentz.set("chunky", 0)
+      lorentz.set("bacon", 1)
+      lorentz.set("chunked", 2)
+      lorentz.set("thunk", 3)
+    end
+
+    it "should match 'unk'" do
+      keys = lorentz.keys('*unk*')
+      keys.should have(3).items
+      %w(chunky chunked thunk).each do |k|
+        keys.should include(k)
+      end
+    end
+
+    it "should return all" do
+      keys = lorentz.keys('*')
+      keys.should have(4).items
+      %w(chunky chunked thunk bacon).each do |k|
+        keys.should include(k)
+      end
+    end
+
   end
 end
