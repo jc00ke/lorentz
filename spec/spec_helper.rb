@@ -11,3 +11,11 @@ end
 
 require 'lorentz'
 require 'rspec'
+
+RSpec.configure do |config|
+  config.before(:each) do
+    ::Maglev::PERSISTENT_ROOT.delete_if do |key, val|
+      key.to_s =~ /^lorentz_db_.*$/
+    end
+  end
+end
