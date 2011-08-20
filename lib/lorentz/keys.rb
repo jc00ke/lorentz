@@ -20,4 +20,17 @@ module Lorentz::Keys
       @db.keys.grep(compile(pattern))
     end
   end
+
+  def rename(key, newkey)
+    if key == newkey
+      raise LorentzException, "newkey: #{newkey} must be different than key: #{key}"
+    end
+    raise LorentzException, "key: #{key} does not exist" unless exists(key)
+    save do
+      val = get(key)
+      del(key)
+      set(newkey, val)
+    end
+    
+  end
 end

@@ -71,6 +71,51 @@ describe "keys" do
         keys.should include(k)
       end
     end
+  end
 
+  describe "#rename" do
+
+    context "when key exists" do
+
+      before do
+        lorentz.set("chunky", "bacon")
+      end
+
+      context "and newkey exists" do
+        before do
+          lorentz.set("yummy", "snacks")
+        end
+
+        it "should overwrite newkey" do
+          lorentz.rename("chunky", "yummy")
+          lorentz.get("yummy").should == "bacon"
+        end
+      end
+
+      context "and newkey doesn't exist" do
+        it "it should set new key" do
+          lorentz.rename("chunky", "yummy")
+          lorentz.get("yummy").should == "bacon"
+        end
+      end
+
+      context "and newkey is the same" do
+        it "should raise a LorentzException" do
+          expect do
+            lorentz.rename("chunky", "chunky")
+          end.to raise_error(LorentzException)
+        end
+      end
+
+    end
+
+    context "when key doesn't exist" do
+      it "should raise a LorentzException" do
+        expect do
+          lorentz.rename("chunky", "yummy")
+        end.to raise_error(LorentzException)
+      end
+
+    end
   end
 end

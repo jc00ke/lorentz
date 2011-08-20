@@ -1,0 +1,1 @@
+class LorentzException < StandardError; end

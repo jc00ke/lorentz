@@ -1,4 +1,5 @@
 require "lorentz/version"
+require "lorentz/exceptions"
 require "lorentz/strings"
 require "lorentz/keys"
 
