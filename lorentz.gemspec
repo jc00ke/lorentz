@@ -4,7 +4,7 @@ require "lorentz/version"
 
 Gem::Specification.new do |s|
   s.name        = "lorentz"
-  s.version     = Lorentz::VERSION
+  s.version     = Lorentz.version
   s.authors     = ["Jesse Cooke"]
   s.email       = ["jesse@jc00ke.com"]
   s.homepage    = ""
