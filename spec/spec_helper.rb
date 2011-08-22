@@ -14,8 +14,10 @@ require 'rspec'
 
 RSpec.configure do |config|
   config.before(:each) do
+    ::Maglev.abort_transaction
     ::Maglev::PERSISTENT_ROOT.delete_if do |key, val|
       key.to_s =~ /^lorentz_db_.*$/
     end
+    ::Maglev.commit_transaction
   end
 end
