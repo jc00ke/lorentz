@@ -17,6 +17,7 @@ Because it's \_why day, \_why day, gotta write a hack it's \_why day!
 * renamenx
 * strlen
 * randomkey
+* append
 
 ## Inspiration
 

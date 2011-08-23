@@ -1,6 +1,5 @@
 require 'spec_helper'
 
-#APPEND
 #DECR
 #DECRBY
 #GETBIT
@@ -55,12 +54,38 @@ describe "strings" do
   describe "#append" do
     context "when key exists" do
       context "and is a string" do
-        xit "should tack value on to end of string" do
-
+        before do
+          lorentz.set("chunky", "bacon")
         end
-         xit "should return length of value" do
-
+        it "should tack value on to end of string" do
+          lorentz.append("chunky", " is yummy")
+          lorentz.get("chunky").should == "bacon is yummy"
+        end
+         it "should return length of value" do
+          lorentz.append("chunky", " is yummy").should eq("bacon is yummy".length)
          end
+      end
+
+      context "and is not a string" do
+        before do
+          lorentz.set("chunky", 1)
+        end
+
+        it "should raise an error" do
+          expect do
+            lorentz.append("chunky", "bacon")
+          end.to raise_error(LorentzException)
+        end
+      end
+    end
+
+    context "when key doesn't exist" do
+      it "should return 'OK'" do
+        lorentz.append("chunky", "bacon").should == "OK"
+      end
+      it "should set the key to be an empty string" do
+        lorentz.append("chunky", "bacon")
+        lorentz.get("chunky").should be_empty
       end
     end
   end
