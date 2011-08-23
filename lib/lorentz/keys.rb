@@ -43,4 +43,11 @@ module Lorentz::Keys
     return 1
   end
 
+  def randomkey
+    return nil if @db.empty?
+    run do
+      @db.keys[rand(@db.keys.length)]
+    end
+  end
+
 end

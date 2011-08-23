@@ -5,7 +5,6 @@ require 'spec_helper'
 #MOVE
 #OBJECT
 #PERSIST
-#RANDOMKEY
 #SORT
 #TTL
 #TYPE
@@ -154,6 +153,31 @@ describe "keys" do
         end.to raise_error(LorentzException)
       end
 
+    end
+  end
+
+  describe "randomkey" do
+    context "database with some keys" do
+      before do
+        1.upto(1000){ |i| lorentz.set(i, i) }
+      end
+
+      it "should return a random key" do
+        (1..100).to_a.inject([]) do |memo, i|
+          memo << lorentz.randomkey
+        end.uniq.should have_at_least(90).keys
+      end
+    end
+
+    context "empty database" do
+      before do
+        # delete in case... paranoid much?
+        ::Maglev::PERSISTENT_ROOT.delete(:lorentz_db_100)
+      end
+      it "should return nil" do
+        l = Lorentz.new(:db => :lorentz_db_100)  
+        l.randomkey.should be_nil
+      end
     end
   end
 end

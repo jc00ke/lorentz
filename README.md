@@ -16,6 +16,7 @@ Because it's \_why day, \_why day, gotta write a hack it's \_why day!
 * rename
 * renamenx
 * strlen
+* randomkey
 
 ## Inspiration
 
