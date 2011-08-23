@@ -6,7 +6,6 @@ require 'spec_helper'
 #OBJECT
 #PERSIST
 #RANDOMKEY
-#RENAMENX
 #SORT
 #TTL
 #TYPE
@@ -112,6 +111,46 @@ describe "keys" do
       it "should raise a LorentzException" do
         expect do
           lorentz.rename("chunky", "yummy")
+        end.to raise_error(LorentzException)
+      end
+
+    end
+  end
+
+  describe "renamenx" do
+    
+    context "when key exists" do
+
+      before do
+        lorentz.set("chunky", "bacon")
+      end
+
+      context "and newkey exists" do
+        it "should return 0" do
+          lorentz.set("funky", "cold medina")
+          lorentz.renamenx("chunky", "funky").should be_zero
+        end
+      end
+       
+      context "and newkey doesn't exist" do
+        it "should return 1" do
+          lorentz.renamenx("chunky", "funky").should eq(1)
+        end
+      end
+
+      context "and newkey is the same" do
+        it "should raise a LorentzException" do
+          expect do
+            lorentz.rename("chunky", "chunky")
+          end.to raise_error(LorentzException)
+        end
+      end
+    end
+
+    context "when key doesn't exist" do
+      it "should raise a LorentzException" do
+        expect do
+          lorentz.renamenx("chunky", "yummy")
         end.to raise_error(LorentzException)
       end
 

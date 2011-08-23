@@ -31,6 +31,16 @@ module Lorentz::Keys
       del(key)
       set(newkey, val)
     end
-    
   end
+
+  def renamenx(key, newkey)
+    if key == newkey
+      raise LorentzException, "newkey: #{newkey} must be different than key: #{key}"
+    end
+    raise LorentzException, "key: #{key} does not exist" unless exists(key)
+    return 0 if exists(newkey)
+    rename(key, newkey)
+    return 1
+  end
+
 end
