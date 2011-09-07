@@ -1,3 +1,4 @@
+require 'maglev/rchash'
 require "lorentz/version"
 require "lorentz/exceptions"
 require "lorentz/strings"
@@ -10,7 +11,7 @@ class Lorentz
     db_name = opts.delete(:db) || 0
 
     @db = begin
-            ::Maglev::PERSISTENT_ROOT[:"lorentz_db_#{db_name}"] ||= {}
+            ::Maglev::PERSISTENT_ROOT[:"lorentz_db_#{db_name}"] ||= RCHash.new
           rescue
             $stderr.puts "Maglev only"
             exit
